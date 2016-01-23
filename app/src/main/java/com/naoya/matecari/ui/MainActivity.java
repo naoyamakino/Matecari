@@ -38,15 +38,6 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         setSupportActionBar(mToolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.men)));
         mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.all)));
         mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.women)));
