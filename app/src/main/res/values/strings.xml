@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Matecari</string>
     <string name="action_settings">Settings</string>
+    <string name="all">All</string>
+    <string name="men">Men</string>
+    <string name="women">Women</string>
 </resources>
