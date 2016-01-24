@@ -31,6 +31,7 @@ public class AllPagerFragment extends Fragment {
 
         mFeed.setHasFixedSize(true);
         mFeed.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        mFeed.setAdapter(new ItemAdapter(getActivity(), null));
         return view;
     }
 }
