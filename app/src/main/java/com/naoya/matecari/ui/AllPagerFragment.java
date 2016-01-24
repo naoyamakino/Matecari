@@ -18,9 +18,18 @@ import butterknife.ButterKnife;
  * Created by Naoya on 16-01-23.
  */
 public class AllPagerFragment extends Fragment {
+    private static final String DATA_SOURCE = "data_source";
 
     @Bind(R.id.feed)
     RecyclerView mFeed;
+
+    public static AllPagerFragment newInstance(String dataSource) {
+        AllPagerFragment fragment = new AllPagerFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(DATA_SOURCE, dataSource);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
 
     @Nullable
     @Override
@@ -33,5 +42,11 @@ public class AllPagerFragment extends Fragment {
         mFeed.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         mFeed.setAdapter(new ItemAdapter(getActivity(), null));
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
     }
 }

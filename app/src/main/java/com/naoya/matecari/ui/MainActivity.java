@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
                 case 0:
                     return new MenPagerFragment();
                 case 1:
-                    return new AllPagerFragment();
+                    return AllPagerFragment.newInstance("all");
                 case 2:
                     return new WomenPagerFragment();
             }
