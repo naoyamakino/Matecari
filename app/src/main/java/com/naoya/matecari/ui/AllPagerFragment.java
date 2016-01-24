@@ -1,6 +1,8 @@
 package com.naoya.matecari.ui;
 
 import com.naoya.matecari.R;
+import com.naoya.matecari.data.Data;
+import com.naoya.matecari.data.Sources;
 import com.squareup.picasso.Picasso;
 
 import android.os.Bundle;
@@ -18,6 +20,10 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import rx.Observable;
 import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by Naoya on 16-01-23.
@@ -30,6 +36,9 @@ public class AllPagerFragment extends Fragment {
 
     @Inject
     Picasso mPicasso;
+
+    @Inject
+    Sources mSources;
 
     Subscription mSubscription;
 
@@ -58,7 +67,32 @@ public class AllPagerFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         ((BaseActivity) getActivity()).inject(this);
 
-        mSubscription = Observable.concat()
-        mFeed.setAdapter(new ItemAdapter(getActivity(), null, mPicasso));
+        mSubscription = Observable.concat(
+                mSources.disk(""),
+                mSources.memory())
+                .first(new Func1<Data, Boolean>() {
+                    @Override
+                    public Boolean call(Data data) {
+                        return data != null;
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+        .subscribeOn(Schedulers.io())
+        .subscribe(new Action1<Data>() {
+            @Override
+            public void call(Data data) {
+                mFeed.setAdapter(
+                        new ItemAdapter(
+                                getActivity(),
+                                data.getData(),
+                                mPicasso));
+            }
+        });
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mSubscription.unsubscribe();
     }
 }

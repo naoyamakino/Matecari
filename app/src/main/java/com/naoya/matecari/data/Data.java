@@ -9,4 +9,7 @@ public class Data {
     private String result;
     private List<Item> data;
 
+    public List<Item> getData() {
+        return data;
+    }
 }
