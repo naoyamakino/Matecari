@@ -3,6 +3,7 @@ package com.naoya.matecari.di;
 import com.naoya.matecari.ui.AllPagerFragment;
 import com.naoya.matecari.ui.BaseActivity;
 import com.naoya.matecari.ui.MainActivity;
+import com.squareup.picasso.Picasso;
 
 import android.content.Context;
 
@@ -23,14 +24,19 @@ import dagger.Provides;
         addsTo = ApplicationModule.class
 )
 public class ActivityModule {
-        private BaseActivity mActivity;
+    private BaseActivity mActivity;
 
-        public ActivityModule(BaseActivity activity) {
-                mActivity = activity;
-        }
+    public ActivityModule(BaseActivity activity) {
+        mActivity = activity;
+    }
 
-        @Provides @Singleton @ForActivity
-        Context provideContext() {
-                return mActivity;
-        }
+    @Provides @Singleton @ForActivity
+    Context provideContext() {
+        return mActivity;
+    }
+
+    @Provides @Singleton
+    Picasso providePicasso (@ForActivity Context context) {
+        return Picasso.with(context);
+    }
 }

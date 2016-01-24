@@ -1,6 +1,7 @@
 package com.naoya.matecari.ui;
 
 import com.naoya.matecari.R;
+import com.squareup.picasso.Picasso;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,8 +12,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import javax.inject.Inject;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import rx.Observable;
+import rx.Subscription;
 
 /**
  * Created by Naoya on 16-01-23.
@@ -22,6 +27,11 @@ public class AllPagerFragment extends Fragment {
 
     @Bind(R.id.feed)
     RecyclerView mFeed;
+
+    @Inject
+    Picasso mPicasso;
+
+    Subscription mSubscription;
 
     public static AllPagerFragment newInstance(String dataSource) {
         AllPagerFragment fragment = new AllPagerFragment();
@@ -40,13 +50,15 @@ public class AllPagerFragment extends Fragment {
 
         mFeed.setHasFixedSize(true);
         mFeed.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        mFeed.setAdapter(new ItemAdapter(getActivity(), null));
         return view;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        ((BaseActivity) getActivity()).inject(this);
 
+        mSubscription = Observable.concat()
+        mFeed.setAdapter(new ItemAdapter(getActivity(), null, mPicasso));
     }
 }

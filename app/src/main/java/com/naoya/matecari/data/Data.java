@@ -1,30 +1,12 @@
 package com.naoya.matecari.data;
 
+import java.util.List;
+
 /**
- * Created by Naoya on 16-01-23.
+ * Created by Naoya on 16-01-24.
  */
-public final class Data {
+public class Data {
+    private String result;
+    private List<Item> data;
 
-    private String id;
-    private String name;
-    private long num_likes;
-    private long num_comments;
-    private long price;
-    private String photo;
-
-    public String getName() {
-        return name;
-    }
-
-    public long getNum_likes() {
-        return num_likes;
-    }
-
-    public long getNum_comments() {
-        return num_comments;
-    }
-
-    public long getPrice() {
-        return price;
-    }
 }

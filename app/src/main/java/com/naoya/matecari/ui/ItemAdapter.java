@@ -1,7 +1,8 @@
 package com.naoya.matecari.ui;
 
 import com.naoya.matecari.R;
-import com.naoya.matecari.data.Data;
+import com.naoya.matecari.data.Item;
+import com.squareup.picasso.Picasso;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -19,7 +20,7 @@ import butterknife.ButterKnife;
 /**
  * Created by Naoya on 16-01-23.
  */
-public class ItemAdapter extends ArrayAdapter<Data, ItemAdapter.ItemViewHolder> {
+public class ItemAdapter extends ArrayAdapter<Item, ItemAdapter.ItemViewHolder> {
 
     static class ItemViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.image)
@@ -44,18 +45,20 @@ public class ItemAdapter extends ArrayAdapter<Data, ItemAdapter.ItemViewHolder> 
     }
 
     private Context mContext;
+    private Picasso mPicasso;
 
-    public ItemAdapter(Context context, List<Data> data) {
-        super(data);
+    public ItemAdapter(Context context, List<Item> items, Picasso picasso) {
+        super(items);
         mContext = context;
+        mPicasso = picasso;
     }
 
     @Override
     public void onBindViewHolder(ItemViewHolder holder, int position) {
-        Data data = getItem(position);
-        holder.name.setText(data.getName());
-        holder.numComments.setText(String.valueOf(data.getNum_comments()));
-        holder.numLikes.setText(String.valueOf(data.getNum_likes()));
+        Item item = getItem(position);
+        holder.name.setText(item.getName());
+        holder.numComments.setText(String.valueOf(item.getNum_comments()));
+        holder.numLikes.setText(String.valueOf(item.getNum_likes()));
     }
 
     @Override
