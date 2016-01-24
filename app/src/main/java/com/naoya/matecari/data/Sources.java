@@ -1,10 +1,19 @@
 package com.naoya.matecari.data;
 
+import com.google.gson.Gson;
+
+import android.content.Context;
 import android.util.Log;
 
+import java.io.IOException;
+import java.io.InputStream;
+
+import okio.BufferedSource;
+import okio.Okio;
 import rx.Observable;
 import rx.Subscriber;
 import rx.functions.Action1;
+import rx.functions.Func1;
 
 /**
  * Created by Naoya on 16-01-24.
@@ -12,7 +21,13 @@ import rx.functions.Action1;
 public class Sources {
     private static final String TAG = "Sources";
     private Data memory = null;
-    private Data disk = null;
+    private Context mContext;
+    private Gson mGson;
+
+    public Sources(Context context, Gson gson) {
+        mContext = context;
+        mGson = gson;
+    }
 
     public void cleanMemory() {
         memory = null;
@@ -29,11 +44,26 @@ public class Sources {
         return observable.compose(logSource("MEMORY"));
     }
 
-    public Observable<Data> disk(String type) {
-        Observable<Data> observable = Observable.create(new Observable.OnSubscribe<Data>() {
-            @Override
-            public void call(Subscriber<? super Data> subscriber) {
+    public Observable<Data> disk(final String fileName) {
+        Observable<Data> observable = Observable.create(
+                new Observable.OnSubscribe<String>() {
+                    @Override
+                    public void call(Subscriber<? super String> subscriber) {
+                        try {
+                            InputStream is = mContext.getAssets().open(fileName);
+                            BufferedSource source = Okio.buffer(Okio.source(is));
+                            subscriber.onNext(source.readUtf8());
+                            subscriber.onCompleted();
 
+                        } catch (IOException exception) {
+                            subscriber.onError(exception);
+                        }
+                    }
+                }
+        ).map(new Func1<String, Data>() {
+            @Override
+            public Data call(String jsonString) {
+                return mGson.fromJson(jsonString, Data.class);
             }
         });
         return observable.doOnNext(new Action1<Data>() {

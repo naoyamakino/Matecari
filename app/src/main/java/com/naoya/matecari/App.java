@@ -18,7 +18,7 @@ public class App extends android.app.Application{
     @Override
     public void onCreate() {
         super.onCreate();
-        mObjectGraph = ObjectGraph.create(getModules());
+        mObjectGraph = ObjectGraph.create(getModules().toArray());
 
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
                 .detectCustomSlowCalls()

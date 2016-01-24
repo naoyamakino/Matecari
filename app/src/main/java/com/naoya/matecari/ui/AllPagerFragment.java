@@ -67,8 +67,9 @@ public class AllPagerFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         ((BaseActivity) getActivity()).inject(this);
 
+        final String source = getArguments().getString(DATA_SOURCE);
         mSubscription = Observable.concat(
-                mSources.disk(""),
+                mSources.disk(source),
                 mSources.memory())
                 .first(new Func1<Data, Boolean>() {
                     @Override

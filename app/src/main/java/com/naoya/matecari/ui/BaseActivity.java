@@ -22,7 +22,7 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         App app = (App) getApplicationContext();
-        mObjectGraph = app.getObjectGraph().plus(getModules());
+        mObjectGraph = app.getObjectGraph().plus(getModules().toArray());
     }
 
     /**

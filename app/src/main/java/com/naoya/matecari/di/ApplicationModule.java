@@ -1,14 +1,26 @@
 package com.naoya.matecari.di;
 
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import com.naoya.matecari.App;
+
 import android.content.Context;
 
 import javax.inject.Singleton;
 
+import dagger.Module;
 import dagger.Provides;
 
 /**
  * Created by Naoya on 16-01-24.
  */
+
+@Module(
+        injects = App.class,
+        library = true
+)
 public class ApplicationModule {
     private Context mContext;
 
@@ -18,5 +30,11 @@ public class ApplicationModule {
 
     @Singleton @ForApplication @Provides public Context provideContext() {
         return mContext;
+    }
+
+    @Singleton @Provides public Gson provideGson() {
+        return new GsonBuilder()
+                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                .create();
     }
 }

@@ -19,7 +19,7 @@ import android.view.MenuItem;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     @Bind(R.id.toolbar)
     Toolbar mToolbar;
@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
                 case 0:
                     return new MenPagerFragment();
                 case 1:
-                    return AllPagerFragment.newInstance("all");
+                    return AllPagerFragment.newInstance("all.json");
                 case 2:
                     return new WomenPagerFragment();
             }

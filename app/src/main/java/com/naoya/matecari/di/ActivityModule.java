@@ -1,5 +1,8 @@
 package com.naoya.matecari.di;
 
+import com.google.gson.Gson;
+
+import com.naoya.matecari.data.Sources;
 import com.naoya.matecari.ui.AllPagerFragment;
 import com.naoya.matecari.ui.BaseActivity;
 import com.naoya.matecari.ui.MainActivity;
@@ -21,7 +24,8 @@ import dagger.Provides;
                 MainActivity.class,
                 AllPagerFragment.class
         },
-        addsTo = ApplicationModule.class
+        addsTo = ApplicationModule.class,
+        library = true
 )
 public class ActivityModule {
     private BaseActivity mActivity;
@@ -38,5 +42,10 @@ public class ActivityModule {
     @Provides @Singleton
     Picasso providePicasso (@ForActivity Context context) {
         return Picasso.with(context);
+    }
+
+    @Provides @Singleton
+    Sources provideSources(@ForActivity Context context, Gson gson) {
+        return new Sources(context, gson);
     }
 }
