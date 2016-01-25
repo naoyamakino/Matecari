@@ -27,4 +27,8 @@ public final class Item {
     public long getPrice() {
         return price;
     }
+
+    public String getPhoto() {
+        return photo;
+    }
 }

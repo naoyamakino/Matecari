@@ -3,7 +3,7 @@ package com.naoya.matecari.di;
 import com.google.gson.Gson;
 
 import com.naoya.matecari.data.Sources;
-import com.naoya.matecari.ui.AllPagerFragment;
+import com.naoya.matecari.ui.PagerFragment;
 import com.naoya.matecari.ui.BaseActivity;
 import com.naoya.matecari.ui.MainActivity;
 import com.squareup.picasso.Picasso;
@@ -22,7 +22,7 @@ import dagger.Provides;
 @Module(
         injects = {
                 MainActivity.class,
-                AllPagerFragment.class
+                PagerFragment.class
         },
         addsTo = ApplicationModule.class,
         library = true

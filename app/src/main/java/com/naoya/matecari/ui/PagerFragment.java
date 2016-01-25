@@ -28,7 +28,7 @@ import rx.schedulers.Schedulers;
 /**
  * Created by Naoya on 16-01-23.
  */
-public class AllPagerFragment extends Fragment {
+public class PagerFragment extends Fragment {
     private static final String DATA_SOURCE = "data_source";
 
     @Bind(R.id.feed)
@@ -42,8 +42,8 @@ public class AllPagerFragment extends Fragment {
 
     Subscription mSubscription;
 
-    public static AllPagerFragment newInstance(String dataSource) {
-        AllPagerFragment fragment = new AllPagerFragment();
+    public static PagerFragment newInstance(String dataSource) {
+        PagerFragment fragment = new PagerFragment();
         Bundle bundle = new Bundle();
         bundle.putString(DATA_SOURCE, dataSource);
         fragment.setArguments(bundle);
