@@ -28,6 +28,11 @@ public abstract class ArrayAdapter<T, VH extends RecyclerView.ViewHolder>
         notifyItemInserted(getItemCount() - 1);
     }
 
+    public void swapData(List<T> objects) {
+        mObjects = objects;
+        notifyDataSetChanged();
+    }
+
     /**
      * Remove all elements from the list.
      */

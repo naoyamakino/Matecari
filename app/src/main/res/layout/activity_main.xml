@@ -7,52 +7,57 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 >
-    <android.support.design.widget.AppBarLayout
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:id="@+id/appBarLayout"
-        >
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@android:color/white"
-            app:titleTextColor="@android:color/holo_orange_dark"
-            app:popupTheme="@style/AppTheme.PopupOverlay"/>
-
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tabLayout"
-            android:layout_width="match_parent"
+    <RelativeLayout android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+        <android.support.design.widget.AppBarLayout
             android:layout_height="wrap_content"
-            app:tabIndicatorHeight="4dp"
-            android:background="@android:color/white"
-            app:tabTextColor="@android:color/holo_orange_dark"
-            app:tabSelectedTextColor="@android:color/holo_orange_dark"
-            app:tabIndicatorColor="@android:color/holo_orange_dark"
-            app:tabTextAppearance="@style/TabLayoutTextAppearance"
-        />
-
-        <View
             android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@android:color/holo_orange_dark" />
-    </android.support.design.widget.AppBarLayout>
+            android:id="@+id/appBarLayout"
+        >
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@android:color/white"
+                app:titleTextColor="@android:color/holo_orange_dark"
+                app:popupTheme="@style/AppTheme.PopupOverlay"/>
 
-    <android.support.v4.view.ViewPager
-        android:layout_below="@id/tabLayout"
-        android:id="@+id/viewPager"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-    />
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabIndicatorHeight="4dp"
+                android:background="@android:color/white"
+                app:tabTextColor="@android:color/holo_orange_dark"
+                app:tabSelectedTextColor="@android:color/holo_orange_dark"
+                app:tabIndicatorColor="@android:color/holo_orange_dark"
+                app:tabTextAppearance="@style/TabLayoutTextAppearance"
+            />
 
-    <ImageButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:background="@android:color/transparent"
-        android:src="@drawable/btn_exhibit"
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@android:color/holo_orange_dark" />
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.view.ViewPager
+            android:layout_below="@id/appBarLayout"
+            android:id="@+id/viewPager"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
         />
+
+        <ImageButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="@dimen/fab_margin"
+            android:background="@android:color/transparent"
+            android:src="@drawable/btn_exhibit"
+        />
+    </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>

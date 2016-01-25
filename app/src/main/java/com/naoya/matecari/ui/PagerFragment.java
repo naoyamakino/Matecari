@@ -56,16 +56,11 @@ public class PagerFragment extends Fragment {
             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_all_pager, container, false);
         ButterKnife.bind(this, view);
+        ((BaseActivity) getActivity()).inject(this);
 
         mFeed.setHasFixedSize(true);
         mFeed.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        return view;
-    }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        ((BaseActivity) getActivity()).inject(this);
 
         final String source = getArguments().getString(DATA_SOURCE);
         mSubscription = Observable.concat(
@@ -78,22 +73,23 @@ public class PagerFragment extends Fragment {
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
-        .subscribeOn(Schedulers.io())
-        .subscribe(new Action1<Data>() {
-            @Override
-            public void call(Data data) {
-                mFeed.setAdapter(
-                        new ItemAdapter(
-                                getActivity(),
-                                data.getData(),
-                                mPicasso));
-            }
-        });
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Action1<Data>() {
+                    @Override
+                    public void call(Data data) {
+                        mFeed.setAdapter(
+                                new ItemAdapter(
+                                        getActivity(),
+                                        data.getData(),
+                                        mPicasso));
+                    }
+                });
+        return view;
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mSubscription.unsubscribe();
+        if (mSubscription != null) mSubscription.unsubscribe();
     }
 }
