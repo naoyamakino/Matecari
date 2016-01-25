@@ -59,7 +59,11 @@ public class ItemAdapter extends ArrayAdapter<Item, ItemAdapter.ItemViewHolder> 
         holder.name.setText(item.getName());
         holder.numComments.setText(String.valueOf(item.getNum_comments()));
         holder.numLikes.setText(String.valueOf(item.getNum_likes()));
-        holder.price.setText(String.valueOf(item.getPrice()));
+        holder.price.setText(
+                String.format(
+                        mContext.getString(R.string.price),
+                        item.getPrice()
+                ));
 
         mPicasso.load(item.getPhoto())
                 .fit()
