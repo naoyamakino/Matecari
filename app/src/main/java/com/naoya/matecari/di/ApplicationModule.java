@@ -29,11 +29,13 @@ public class ApplicationModule {
         mContext = context;
     }
 
-    @Singleton @ForApplication @Provides public Context provideContext() {
+    @Singleton @ForApplication @Provides
+    public Context provideContext() {
         return mContext;
     }
 
-    @Singleton @Provides public Gson provideGson() {
+    @Singleton @Provides
+    public Gson provideGson() {
         return new GsonBuilder()
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
                 .create();
