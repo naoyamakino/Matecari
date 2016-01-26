@@ -63,9 +63,10 @@ public class PagerFragment extends Fragment {
 
 
         final String source = getArguments().getString(DATA_SOURCE);
+        mSources.setType(source);
         mSubscription = Observable.concat(
-                mSources.disk(source),
-                mSources.memory())
+                mSources.memory(),
+                mSources.disk(source))
                 .first(new Func1<Data, Boolean>() {
                     @Override
                     public Boolean call(Data data) {

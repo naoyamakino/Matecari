@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import com.naoya.matecari.App;
+import com.naoya.matecari.data.Sources;
 
 import android.content.Context;
 
@@ -36,5 +37,10 @@ public class ApplicationModule {
         return new GsonBuilder()
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
                 .create();
+    }
+
+    @Provides @Singleton
+    Sources provideSources(@ForApplication Context context, Gson gson) {
+        return new Sources(context, gson);
     }
 }

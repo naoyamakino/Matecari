@@ -3,6 +3,7 @@ package com.naoya.matecari.data;
 import com.google.gson.Gson;
 
 import android.content.Context;
+import android.support.annotation.WorkerThread;
 import android.util.Log;
 
 import java.io.IOException;
@@ -23,6 +24,7 @@ public class Sources {
     private Data memory = null;
     private Context mContext;
     private Gson mGson;
+    private String mType;
 
     public Sources(Context context, Gson gson) {
         mContext = context;
@@ -31,6 +33,10 @@ public class Sources {
 
     public void cleanMemory() {
         memory = null;
+    }
+
+    public void setType(String type) {
+        mType = type;
     }
 
     public Observable<Data> memory() {
@@ -44,6 +50,7 @@ public class Sources {
         return observable.compose(logSource("MEMORY"));
     }
 
+    @WorkerThread
     public Observable<Data> disk(final String fileName) {
         Observable<Data> observable = Observable.create(
                 new Observable.OnSubscribe<String>() {
@@ -82,9 +89,9 @@ public class Sources {
                     @Override
                     public void call(Data data) {
                         if (data == null) {
-                            Log.d(TAG, source + " does not have any data.");
+                            Log.d(TAG, source + " does not have any data. Type = " + mType);
                         } else {
-                            Log.d(TAG, source + " has data");
+                            Log.d(TAG, source + " has data. Type = " + mType);
                         }
                     }
                 });

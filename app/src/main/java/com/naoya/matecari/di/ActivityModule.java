@@ -1,8 +1,5 @@
 package com.naoya.matecari.di;
 
-import com.google.gson.Gson;
-
-import com.naoya.matecari.data.Sources;
 import com.naoya.matecari.ui.PagerFragment;
 import com.naoya.matecari.ui.BaseActivity;
 import com.naoya.matecari.ui.MainActivity;
@@ -44,8 +41,5 @@ public class ActivityModule {
         return Picasso.with(context);
     }
 
-    @Provides @Singleton
-    Sources provideSources(@ForActivity Context context, Gson gson) {
-        return new Sources(context, gson);
-    }
+
 }
