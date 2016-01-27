@@ -5,6 +5,7 @@ import com.naoya.matecari.data.Data;
 import com.naoya.matecari.data.Sources;
 import com.squareup.picasso.Picasso;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -59,7 +60,8 @@ public class PagerFragment extends Fragment {
         ((BaseActivity) getActivity()).inject(this);
 
         mFeed.setHasFixedSize(true);
-        mFeed.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        int numberOfColumns = getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT ? 2: 3;
+        mFeed.setLayoutManager(new GridLayoutManager(getActivity(), numberOfColumns));
 
 
         final String source = getArguments().getString(DATA_SOURCE);
