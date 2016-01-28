@@ -24,7 +24,7 @@ public class Sources {
     private Data memory = null;
     private Context mContext;
     private Gson mGson;
-    private String mType;
+    private String mFileName;
 
     public Sources(Context context, Gson gson) {
         mContext = context;
@@ -35,8 +35,8 @@ public class Sources {
         memory = null;
     }
 
-    public void setType(String type) {
-        mType = type;
+    public void setFileName(String fileName) {
+        mFileName = fileName;
     }
 
     public Observable<Data> memory() {
@@ -51,13 +51,13 @@ public class Sources {
     }
 
     @WorkerThread
-    public Observable<Data> disk(final String fileName) {
+    public Observable<Data> disk() {
         Observable<Data> observable = Observable.create(
                 new Observable.OnSubscribe<String>() {
                     @Override
                     public void call(Subscriber<? super String> subscriber) {
                         try {
-                            InputStream is = mContext.getAssets().open(fileName);
+                            InputStream is = mContext.getAssets().open(mFileName);
                             BufferedSource source = Okio.buffer(Okio.source(is));
                             subscriber.onNext(source.readUtf8());
                             subscriber.onCompleted();
@@ -89,9 +89,9 @@ public class Sources {
                     @Override
                     public void call(Data data) {
                         if (data == null) {
-                            Log.d(TAG, source + " does not have any data. Type = " + mType);
+                            Log.d(TAG, source + " does not have any data. Type = " + mFileName);
                         } else {
-                            Log.d(TAG, source + " has data. Type = " + mType);
+                            Log.d(TAG, source + " has data. Type = " + mFileName);
                         }
                     }
                 });

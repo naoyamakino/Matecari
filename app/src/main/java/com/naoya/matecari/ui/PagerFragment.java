@@ -30,7 +30,7 @@ import rx.schedulers.Schedulers;
  * Created by Naoya on 16-01-23.
  */
 public class PagerFragment extends Fragment {
-    private static final String DATA_SOURCE = "data_source";
+    private static final String FILE_NAME = "data_source";
 
     @Bind(R.id.feed)
     RecyclerView mFeed;
@@ -43,10 +43,10 @@ public class PagerFragment extends Fragment {
 
     Subscription mSubscription;
 
-    public static PagerFragment newInstance(String dataSource) {
+    public static PagerFragment newInstance(String fileName) {
         PagerFragment fragment = new PagerFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(DATA_SOURCE, dataSource);
+        bundle.putString(FILE_NAME, fileName);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -64,11 +64,11 @@ public class PagerFragment extends Fragment {
         mFeed.setLayoutManager(new GridLayoutManager(getActivity(), numberOfColumns));
 
 
-        final String source = getArguments().getString(DATA_SOURCE);
-        mSources.setType(source);
+        final String fileName = getArguments().getString(FILE_NAME);
+        mSources.setFileName(fileName);
         mSubscription = Observable.concat(
                 mSources.memory(),
-                mSources.disk(source))
+                mSources.disk())
                 .first(new Func1<Data, Boolean>() {
                     @Override
                     public Boolean call(Data data) {
