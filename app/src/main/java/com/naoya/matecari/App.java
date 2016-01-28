@@ -19,22 +19,6 @@ public class App extends android.app.Application{
     public void onCreate() {
         super.onCreate();
         mObjectGraph = ObjectGraph.create(getModules().toArray());
-
-        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
-                .detectCustomSlowCalls()
-                .detectDiskReads()
-                .detectDiskWrites()
-                .detectNetwork()
-                .penaltyLog()
-                .penaltyDeath()
-                .build());
-        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
-                .detectLeakedClosableObjects()
-                .detectLeakedSqlLiteObjects()
-                .detectLeakedRegistrationObjects()
-                .penaltyLog()
-                .penaltyDeath()
-                .build());
     }
 
     protected List<Object> getModules() {

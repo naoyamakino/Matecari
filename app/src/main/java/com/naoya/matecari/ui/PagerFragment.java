@@ -91,6 +91,12 @@ public class PagerFragment extends Fragment {
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         if (mSubscription != null) mSubscription.unsubscribe();
